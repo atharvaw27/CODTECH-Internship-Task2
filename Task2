@@ -1,0 +1,58 @@
+def calculate_letter_grade(average):
+    if average >= 90:
+        return 'A', 4.0
+    elif average >= 80:
+        return 'B', 3.0
+    elif average >= 70:
+        return 'C', 2.0
+    elif average >= 60:
+        return 'D', 1.0
+    else:
+        return 'F', 0.0
+
+def grade_tracker():
+    print("Student Grade Tracker")
+    
+    grades = {}
+
+    while True:
+        print("\nOptions:")
+        print("1. Add grade for a subject/assignment")
+        print("2. Calculate and display average grade")
+        print("3. Exit")
+
+        choice = input("Enter your choice (1/2/3): ")
+
+        if choice == "1":
+            subject = input("Enter the subject/assignment name: ")
+            try:
+                grade = float(input(f"Enter the grade for {subject}: "))
+                if 0 <= grade <= 100:
+                    grades[subject] = grade
+                    print(f"Grade for {subject} recorded.")
+                else:
+                    print("Grade should be between 0 and 100.")
+            except ValueError:
+                print("Invalid input. Please enter a numeric value.")
+        elif choice == "2":
+            if grades:
+                average = sum(grades.values()) / len(grades)
+                letter_grade, gpa = calculate_letter_grade(average)
+
+                print("\nGrade Summary:")
+                for subject, grade in grades.items():
+                    print(f"{subject}: {grade}")
+                print(f"Average Grade: {average:.2f}")
+                print(f"Letter Grade: {letter_grade}")
+                print(f"GPA: {gpa:.2f}")
+            else:
+                print("No grades entered yet.")
+        elif choice == "3":
+            print("Exiting the Grade Tracker. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+
+if __name__ == "__main__":
+    grade_tracker()
